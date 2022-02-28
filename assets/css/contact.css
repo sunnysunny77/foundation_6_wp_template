@@ -1,0 +1,18 @@
+/* contact */
+@import "foundation.css";
+@import "icons/foundation-icons.css";
+.active {
+  font-weight: 700;
+}
+
+/* template styles */
+main {
+  min-height: 74.3vh;
+}
+@media screen and (min-width: 40em) {
+  main {
+    min-height: 70vh;
+  }
+}
+
+/*# sourceMappingURL=contact.css.map */

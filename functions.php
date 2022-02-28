@@ -39,10 +39,6 @@ function foundation_scripts()
     //foundation 6 for sites and icons
     wp_deregister_script('jquery');
 
-    wp_enqueue_style('foundation-css', get_template_directory_uri() . '/assets/css/foundation.css');
-
-    wp_enqueue_style('icons', get_template_directory_uri() . '/assets/css/icons/foundation-icons.css');
-
     wp_enqueue_script('jquery', get_template_directory_uri() . '/js/vendor/jquery.js', '', '', true);
 
     wp_enqueue_script('what-input', get_template_directory_uri() . '/js/vendor/what-input.js', '', '', true);
