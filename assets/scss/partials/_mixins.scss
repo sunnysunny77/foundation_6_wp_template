@@ -1,0 +1,8 @@
+@mixin min_height {
+    main {
+        min-height: 74.3vh;
+        @include medium_and_up {
+            min-height: 70vh;
+        }
+    }
+}

@@ -1,0 +1,9 @@
+/* video */
+
+@import 'variables';
+
+.active {
+    @extend %active;
+}
+
+@import 'template/style';
