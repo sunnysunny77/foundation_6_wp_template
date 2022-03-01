@@ -1,7 +1,7 @@
 <ul>
   <li>Comments
       <ul>
-          <?php if (wp_list_comments()) {
+          <?php if (have_comments()) {
             wp_list_comments();
           } else { ?>
           
