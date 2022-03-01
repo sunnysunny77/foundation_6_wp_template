@@ -3,19 +3,19 @@
   "version": "1.0.0",
   "description": "foundation wordpress theme",
   "scripts": {
-    "build": "node ./node_modules/sass/sass.js ./assets/scss:./assets/css",
-    "watch": "node ./node_modules/sass/sass.js ./assets/scss:./assets/css -w"
+    "build": "node ./node_modules/sass/sass.js ./scss:./css",
+    "watch": "node ./node_modules/sass/sass.js ./scss:./css -w"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sunnysunny77/foundationgit"
+    "url": "git+https://github.com/sunnysunny77/foundation_6_wp_template"
   },
   "author": "D.C",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sunnysunny77/foundation/issues"
+    "url": "https://github.com/sunnysunny77/foundation_6_wp_template/issues"
   },
-  "homepage": "https://github.com/sunnysunny77/foundation#readme",
+  "homepage": "https://github.com/sunnysunny77/foundation_6_wp_template#readme",
   "dependencies": {
     "sass": "^1.34.0"
   }
