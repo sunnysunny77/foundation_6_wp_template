@@ -1,10 +1,15 @@
-<label for="comments">Comments</label>
-<ul id="comments">
-  <?php if (wp_list_comments()) {
-    wp_list_comments();
-  } else { ?>
-    <li> None</li>
-  <?php } ?>
+<ul>
+  <li>Comments
+      <ul>
+          <?php if (wp_list_comments()) {
+            wp_list_comments();
+          } else { ?>
+          
+          <li>none</li>
+          
+          <?php } ?>
+      </ul>
+  </li>
 </ul>
 
 <?php
