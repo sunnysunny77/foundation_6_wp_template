@@ -2,9 +2,9 @@
   while (have_posts()) {
     the_post(); ?>
     
-    <h1 class="text-right">
+    <h2 class="text-right">
       <a href="<?php the_permalink(); ?>"> <?php the_title(); ?> </a>
-    </h1>
+    </h2>
 
     <i class="fi-pencil"></i>
 
