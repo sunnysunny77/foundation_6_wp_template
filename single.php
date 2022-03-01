@@ -35,15 +35,13 @@
 
     <?php } ?>
 
-    <br />
-
     <?php the_category();  ?>
 
-    <?php the_tags(); ?>
+    <p>
 
-    <br />
+        <?php the_tags(); ?>
 
-    <br />
+    </p>
 
     <?php if (comments_open() || get_comments_number()) {
         comments_template();

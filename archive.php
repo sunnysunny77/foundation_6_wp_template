@@ -11,16 +11,19 @@
             <h2 class="text-right">
                 <a href="<?php the_permalink(); ?>"> <?php the_title(); ?> </a>
             </h2>
-            
-            <?php the_content() ?>
 
-            <?php echo get_the_date(); ?>
-
-            <?php the_time(); ?>
-
-            <?php the_author(); ?><br />
+            <i class="fi-pencil"></i>
 
             <?php the_excerpt(); ?>
+            
+            <p>
+                By:&nbsp;
+                <?php the_author(); ?>
+                ,
+                <?php echo get_the_date(); ?>
+                ,
+                <?php the_time(); ?>
+            </p>
 
             <p>
 
