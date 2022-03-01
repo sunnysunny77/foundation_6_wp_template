@@ -1,56 +1,54 @@
 <?php get_header(); ?>
 
-    <main id="main" class="grid-container">
+<main id="main" class="grid-container single">
 
-        <?php
-        
-        if (have_posts()) {
-            while (have_posts()) {
-                the_post(); ?>
+    <?php
 
-                <h2 class="text-right"> <?php the_title(); ?> </h2>
+    if (have_posts()) {
+        while (have_posts()) {
+            the_post(); ?>
 
-                <i class="fi-comments"></i>
+            <h2 class="text-right"> <?php the_title(); ?> </h2>
 
-                <?php if (has_post_thumbnail()) { ?>
+            <i class="fi-comments"></i>
 
-                    <div>
+            <?php the_content() ?>
 
-                        <?php the_post_thumbnail(); ?>
+            <?php edit_post_link(); ?>
 
-                    </div>
+            <nav>
+                <ul>
+                    <li><?php previous_post_link(); ?></li>
+                    <li>|</li>
+                    <li><?php next_post_link(); ?></li>
+                </ul>
+            </nav>
 
-                <?php } ?>
-
-                <?php echo get_the_date(); ?>
-
-                <?php the_content() ?>
-
+            <p>
+                By:&nbsp;
                 <?php the_author(); ?>
+                ,
+                <?php echo get_the_date(); ?>
+            </p>
 
-            <?php } ?>
+        <?php } ?>
 
-        <?php }
-        
-        edit_post_link();
+    <?php } ?>
 
-        the_category();
+    <br />
 
-        the_tags();
+    <?php the_category();  ?>
 
-        ?>
+    <?php the_tags(); ?>
 
-        <div id="prevpost"><?php previous_post_link(); ?></div>
+    <br />
 
-        <div id="nextpost"><?php next_post_link(); ?> </div>
+    <br />
 
-        <?php
-        if (comments_open() || get_comments_number()) :
-             comments_template();
-        endif;
+    <?php if (comments_open() || get_comments_number()) {
+        comments_template();
+    } ?>
 
-        ?>
-
-    </main>
+</main>
 
 <?php get_footer(); ?>
