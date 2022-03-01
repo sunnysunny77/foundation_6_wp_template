@@ -1,0 +1,14 @@
+/* index */
+@import "foundation.css";
+@import "icons/foundation-icons.css";
+/* template styles */
+main {
+  min-height: 74.3vh;
+}
+@media screen and (min-width: 40em) {
+  main {
+    min-height: 70vh;
+  }
+}
+
+/*# sourceMappingURL=single.css.map */
