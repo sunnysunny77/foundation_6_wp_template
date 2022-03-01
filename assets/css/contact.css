@@ -2,7 +2,7 @@
 @import "foundation.css";
 @import "icons/foundation-icons.css";
 .active {
-  font-weight: 700;
+  text-shadow: 1px 0 0 black;
 }
 
 /* template styles */
