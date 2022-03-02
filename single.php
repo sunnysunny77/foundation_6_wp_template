@@ -16,13 +16,11 @@
 
             <?php edit_post_link(); ?>
 
-            <nav>
-                <ul>
-                    <li><?php previous_post_link(); ?></li>
-                    <li>|</li>
-                    <li><?php next_post_link(); ?></li>
-                </ul>
-            </nav>
+            <?php  the_post_navigation( array(
+            'prev_text'                  => __( '← %title' ),
+            'next_text'                  => __( '→ %title' ),
+            'screen_reader_text' => __( 'Continue Reading' ),
+        ) ); ?>
 
             <p>
                 By:&nbsp;
