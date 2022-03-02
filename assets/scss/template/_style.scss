@@ -1,5 +1,8 @@
 /* template styles */
 
 main {
-    min-height: 60.1vh;
+    min-height: 65vh;
+    @include medium_and_up () {
+        min-height: 63.5vh;
+    }
 }

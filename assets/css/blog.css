@@ -7,7 +7,12 @@
 
 /* template styles */
 main {
-  min-height: 60.1vh;
+  min-height: 65vh;
+}
+@media screen and (min-width: 40em) {
+  main {
+    min-height: 63.5vh;
+  }
 }
 
 /*# sourceMappingURL=blog.css.map */
