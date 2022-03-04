@@ -29,7 +29,7 @@ class F6_TOPBAR_MENU_WALKER extends Walker
         $attributes .= $is_current_class;
 
         $item_output = sprintf(
-            $is_current_heading_open . '%1$s<a%2$s>%3$s%4$s%5$s</a>%6$s' . $is_current_heading_close,
+            '%1$s<a%2$s>' . $is_current_heading_open . '%3$s%4$s%5$s'  . $is_current_heading_close . '</a>%6$s' ,
             $args->before,
             $attributes,
             $args->link_before,
