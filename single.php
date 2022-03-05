@@ -17,9 +17,9 @@
             <?php edit_post_link(); ?>
 
             <?php the_post_navigation(array(
-                'prev_text'                  => __('← %title'),
-                'next_text'                  => __('→ %title'),
-                'screen_reader_text' => __('Continue Reading'),
+                'prev_text' => '← %title',
+                'next_text' => '→ %title',
+                'screen_reader_text' => 'Continue Reading',
             )); ?>
 
             <p>
