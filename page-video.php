@@ -1,4 +1,4 @@
-<?php  /* Template Name: video */ 
+<?php /* Template Name: video */ 
 get_header(); ?>
 
     

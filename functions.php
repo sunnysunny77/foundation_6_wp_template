@@ -78,8 +78,8 @@ function foundation_custom_sidebars()
             'id' => 'widget_one',
             'before_widget' => '<li id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</li>',
-			'before_title'  => '<h2 class="widgettitle">',
-			'after_title'   => '</h2>',
+			'before_title'  => '<h6 class="widgettitle">',
+			'after_title'   => '</h6>',
         )
     );
 }
@@ -90,7 +90,7 @@ function foundation_post_limits($query)
     if (!is_admin() && $query->is_main_query()) {
 
         if (is_home()) {
-            $query->set('posts_per_page', '1');
+            $query->set('posts_per_page', '3');
         }
     }
 }

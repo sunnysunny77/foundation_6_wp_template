@@ -1,4 +1,4 @@
-<?php  /* Template Name: gallery */
+<?php /* Template Name: gallery */
 get_header(); ?>
 
 
