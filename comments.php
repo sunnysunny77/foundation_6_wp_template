@@ -1,19 +1,19 @@
 <ul>
   <li>Comments
-      <ul>
-          <?php if (have_comments()) {
-            wp_list_comments();
-          } else { ?>
-          
-          <li>none</li>
-          
-          <?php } ?>
-      </ul>
+    <ul>
+      <?php if (have_comments()) {
+
+        wp_list_comments();
+      } else { ?>
+
+        <li>none</li>
+
+      <?php } ?>
+    </ul>
   </li>
 </ul>
 
 <?php
-
 
 comment_form(
 
