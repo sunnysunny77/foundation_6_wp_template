@@ -2,13 +2,5 @@
 @import "foundation.min.css";
 @import "icons/foundation-icons.css";
 /* template styles */
-main {
-  min-height: 65vh;
-}
-@media screen and (min-width: 40em) {
-  main {
-    min-height: 63.5vh;
-  }
-}
 
 /*# sourceMappingURL=archive.css.map */

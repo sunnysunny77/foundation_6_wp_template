@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../scss/search.scss","../scss/_variables.scss","../scss/template/_style.scss","../scss/partials/_breakpoints.scss"],"names":[],"mappings":"AAAA;ACAQ;AACA;ACDR;AAEA;EACI;;ACDA;EDAJ;IAGQ","file":"search.css"}
+{"version":3,"sourceRoot":"","sources":["../scss/search.scss","../scss/_variables.scss","../scss/template/_style.scss"],"names":[],"mappings":"AAAA;ACAQ;AACA;ACDR","file":"search.css"}
