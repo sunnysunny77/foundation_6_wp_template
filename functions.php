@@ -58,7 +58,12 @@ function foundation_scripts()
         wp_enqueue_style('video-css', get_template_directory_uri() . '/assets/css/video.css');
     } else if (is_page('contact')) {
         wp_enqueue_style('contact-css', get_template_directory_uri() . '/assets/css/contact.css');
-      //  wp_enqueue_script('form-js', get_template_directory_uri() . '/js/form.js', '', '', true);
+    /*  wp_enqueue_script('form-js', get_template_directory_uri() . '/js/form.js', '', '', true);
+        wp_localize_script('form-js', 'frontend_ajax_object',
+        array( 
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'data_var_1' => '',
+        )*/
     } else if (is_page('gallery')) {
         wp_enqueue_style('gallery-css', get_template_directory_uri() . '/assets/css/gallery.css');
     } else if (is_home()) {
@@ -109,6 +114,7 @@ function foundation_session()
 }
 add_action('init', 'foundation_session');
 
+/*
 function foundation_remove_frameborder($return, $data)
 {
     if (is_object($data)) {
@@ -123,6 +129,7 @@ function foundation_remove_frameborder($return, $data)
     return $return;
 }
 add_filter('oembed_dataparse', 'foundation_remove_frameborder', 10, 3);
+*/
 
 function foundation_on_theme_activation()
 {
@@ -213,14 +220,24 @@ function foundation_replace_content($text_content)
 }
 add_filter('the_content', 'foundation_replace_content');
 
+ /*
 
 function foundation_submit_form()
 {
  
-    //require_once(get_template_directory() . '/');
+   require_once(get_template_directory() . '/'); 
+    
+    =
 
+    <form class="grid-x align-center" method="post" id="submit_form">   
+        <input type="hidden" name="action" value="submit_form" >  
+    </form>
+    
+   
   
     exit();
 }
 add_action('wp_ajax_submit_form', "foundation_submit_form");
 add_action('wp_ajax_nopriv_submit_form', 'foundation_submit_form');
+
+*/
