@@ -1,11 +1,17 @@
+SCSS:
 <br>
-To change scss:
 <br>
-npm install in root
 <br>
-compile scss, with
+To change scss: https://docs.npmjs.com/about-npm 
 <br>
-npm run build
 <br>
-or npm run watch.
+“npm install” in the terminal project root directory to install dart sass.
 <br>
+<br>
+Compile scss
+<br>
+<br>
+“npm run build”
+<br>
+<br>
+or “npm run watch”
