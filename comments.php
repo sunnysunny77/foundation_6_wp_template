@@ -28,7 +28,7 @@ comment_form(
     'comment_field' =>  '<p><label for="comment" class="hide"> Comment </label> <textarea placeholder="Start typing..." id="comment"  name="comment" cols="45" rows="8" aria-required="true"></textarea></p>',
     'comment_notes_after' => '<p>' .
       'You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:' .
-      '</p><div>' . allowed_tags() . '</div>'
+      '</p><p>' . allowed_tags() . '</p>'
   )
 );
 
