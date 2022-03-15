@@ -17,7 +17,7 @@ if (!function_exists('foundation_setup')) {
 
         add_theme_support('widget-customizer');
 
-        add_theme_support('custom-logo', array('height' => 100, 'width' => 100, 'header-text' => array('site-title', 'site-description')));
+        add_theme_support('custom-logo', array('height' => 100, 'width' => 100,  'unlink-homepage-logo' => true,  'header-text' => array('site-title', 'site-description')));
 
         add_theme_support('title-tag');
 
