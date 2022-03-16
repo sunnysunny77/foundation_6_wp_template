@@ -205,7 +205,28 @@ function foundation_on_theme_activation()
 }
 add_action('after_switch_theme', 'foundation_on_theme_activation');
 
- /*
+add_filter('pre_option_upload_path', function ($upload_path) {
+    return  get_template_directory() . '/files';
+});
+
+add_filter('pre_option_upload_url_path', function ($upload_url_path) {
+    return get_template_directory_uri() . '/files';
+});
+
+/*
+function foundation_replace_content($text_content)
+{
+    if (is_single() || is_home()) {
+        $text = array(
+            '<p>' => '<p class="callout">',
+        );
+
+        $text_content = str_ireplace(array_keys($text), $text, $text_content);
+    }
+
+    return $text_content;
+}
+add_filter('the_content', 'foundation_replace_content');
 
 function foundation_submit_form()
 {
