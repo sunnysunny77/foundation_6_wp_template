@@ -133,19 +133,24 @@ add_filter('oembed_dataparse', 'foundation_remove_frameborder', 10, 3);
 
 function foundation_on_theme_activation()
 {
+    function foundation_post_meta($id, $key, $val)
+    {
+        add_post_meta($id, $key, $val, true);
+    }
 
     if (!get_option('page_on_front')) {
         $page = array(
-            'import_id'         =>  254,
+            'import_id'      =>  254,
             'post_title'     => 'Home',
             'post_type'      => 'page',
             'post_name'      => 'Home',
             'post_status'    => 'publish',
         );
-        wp_insert_post($page);
-        update_option('page_on_front', get_page_by_title('Home')->ID);
+        $id = wp_insert_post($page);
+        update_option('page_on_front', $id);
         update_option('show_on_front', 'page');
-    }
+       // foundation_post_meta($id, '', '');
+       }
 
     if (!get_option('page_for_posts')) {
         $page = array(
@@ -154,11 +159,11 @@ function foundation_on_theme_activation()
             'post_name'      => 'Posts',
             'post_status'    => 'publish',
         );
-        wp_insert_post($page);
-        update_option('page_for_posts', get_page_by_title('Posts')->ID);
+        $id = wp_insert_post($page);
+        update_option('page_for_posts', $id);
     }
 
-    if (!get_page_by_title('Video')) {
+    if (!get_page_template_slug(256)) {
         $page = array(
             'import_id'         =>  256,
             'post_title'     => 'Video',
@@ -167,10 +172,11 @@ function foundation_on_theme_activation()
             'post_status'    => 'publish',
             'page_template' => 'page-video.php',
         );
-        wp_insert_post($page);
+        $id = wp_insert_post($page);
+        // foundation_post_meta($id, '', '');
     }
 
-    if (!get_page_by_title('Contact')) {
+    if (!get_page_template_slug(257)) {
         $page = array(
             'import_id'         =>  257,
             'post_title'     => 'Contact',
@@ -179,10 +185,10 @@ function foundation_on_theme_activation()
             'post_status'    => 'publish',
             'page_template' => 'page-contact.php',
         );
-        wp_insert_post($page);
-    }
+        $id = wp_insert_post($page);
+        // foundation_post_meta($id, '', '');}
 
-    if (!get_page_by_title('Gallery')) {
+    if (!get_page_template_slug(258)) {
         $page = array(
             'import_id'         =>  258,
             'post_title'     => 'Gallery',
@@ -191,34 +197,13 @@ function foundation_on_theme_activation()
             'post_status'    => 'publish',
             'page_template' => 'page-gallery.php',
         );
-        wp_insert_post($page);
+        $id = wp_insert_post($page);
+          // foundation_post_meta($id, '', '');
     }
 
     update_option('uploads_use_yearmonth_folders', 0);
 }
 add_action('after_switch_theme', 'foundation_on_theme_activation');
-
-add_filter('pre_option_upload_path', function ($upload_path) {
-    return  get_template_directory() . '/files';
-});
-
-add_filter('pre_option_upload_url_path', function ($upload_url_path) {
-    return get_template_directory_uri() . '/files';
-});
-
-function foundation_replace_content($text_content)
-{
-    if (is_single() || is_home()) {
-        $text = array(
-            '<p>' => '<p class="callout">',
-        );
-
-        $text_content = str_ireplace(array_keys($text), $text, $text_content);
-    }
-
-    return $text_content;
-}
-add_filter('the_content', 'foundation_replace_content');
 
  /*
 
