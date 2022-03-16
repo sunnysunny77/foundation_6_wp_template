@@ -150,7 +150,7 @@ function foundation_on_theme_activation()
         update_option('page_on_front', $id);
         update_option('show_on_front', 'page');
        // foundation_post_meta($id, '', '');
-       }
+    }
 
     if (!get_option('page_for_posts')) {
         $page = array(
@@ -186,7 +186,8 @@ function foundation_on_theme_activation()
             'page_template' => 'page-contact.php',
         );
         $id = wp_insert_post($page);
-        // foundation_post_meta($id, '', '');}
+        // foundation_post_meta($id, '', '');
+    }
 
     if (!get_page_template_slug(258)) {
         $page = array(
