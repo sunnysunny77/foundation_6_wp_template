@@ -1,6 +1,4 @@
 /* home */
-@import "foundation.min.css";
-@import "icons/foundation-icons.css";
 .active {
   text-shadow: 1px 0 0 black;
 }

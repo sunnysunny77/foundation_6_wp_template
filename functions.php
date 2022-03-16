@@ -38,6 +38,11 @@ function foundation_scripts()
 {
 
     //foundation 6 for sites and icons
+
+    wp_enqueue_style('foundation-css', get_template_directory_uri() . '/assets/css/foundation.min.css');
+
+    wp_enqueue_style('icons', get_template_directory_uri() . '/assets/css/icons/foundation-icons.css');
+
     wp_deregister_script('jquery');
 
     wp_enqueue_script('jquery-form');
