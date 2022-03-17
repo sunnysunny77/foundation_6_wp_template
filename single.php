@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<main id="main" class="grid-container">
+<main id="main" class="grid-container grid-y">
 
     <?php
 
@@ -8,7 +8,7 @@
         while (have_posts()) {
             the_post(); ?>
 
-            <h1 class="text-right"> <?php the_title(); ?> </h1>
+            <h1 class="cell text-right"> <?php the_title(); ?> </h1>
 
             <i class="fi-comments"></i>
 

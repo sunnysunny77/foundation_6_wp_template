@@ -1,14 +1,14 @@
 <?php get_header() ?>
 
-<main id="main" class="grid-container">
+<main id="main" class="grid-container grid-y">
 
-    <h1 class="text-right"><?php the_archive_title(); ?></h1>
+    <h1 class="cell text-right"><?php the_archive_title(); ?></h1>
 
     <?php if (have_posts()) {
         while (have_posts()) {
             the_post(); ?>
 
-            <h2 class="text-right">
+            <h2 class="cell text-right">
                 <a href="<?php the_permalink(); ?>"> <?php the_title(); ?> </a>
             </h2>
 
