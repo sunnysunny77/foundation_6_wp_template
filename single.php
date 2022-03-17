@@ -31,11 +31,15 @@
 
             <?php the_category();  ?>
 
-            <p>
+            <?php if (the_tags()) { ?>
+			
+			<p>
 
-                <?php the_tags(); ?>
+				<?php the_tags(); ?>
 
-            </p>
+			</p>
+
+           	<?php } ?>
 
             <?php if (comments_open() || get_comments_number()) {
                 comments_template();
