@@ -136,12 +136,110 @@ function foundation_remove_frameborder($return, $data)
 add_filter('oembed_dataparse', 'foundation_remove_frameborder', 10, 3);
 */
 
+add_filter('pre_option_upload_path', function ($upload_path) {
+    return  get_template_directory() . '/files';
+});
+
+add_filter('pre_option_upload_url_path', function ($upload_url_path) {
+    return get_template_directory_uri() . '/files';
+});
+
+/*
+function foundation_replace_content($text_content)
+{
+    if (is_single() || is_home()) {
+        $text = array(
+            '<p>' => '<p class="callout">',
+        );
+
+        $text_content = str_ireplace(array_keys($text), $text, $text_content);
+    }
+
+    return $text_content;
+}
+add_filter('the_content', 'foundation_replace_content');
+
+function foundation_submit_form()
+{
+ 
+   require_once(get_template_directory() . '/'); 
+    
+    =
+
+    <form class="grid-x align-center" method="post" id="submit_form">   
+        <input type="hidden" name="action" value="submit_form" >  
+    </form>
+    
+   
+  
+    exit();
+}
+add_action('wp_ajax_submit_form', "foundation_submit_form");
+add_action('wp_ajax_nopriv_submit_form', 'foundation_submit_form');
+
+
+function foundation_cptui_register_my_cpts()
+{
+
+    $labels = [
+        "name" => __("", "custom-post-type-ui"),
+        "singular_name" => __("", "custom-post-type-ui"),
+    ];
+
+    $args = [
+        "label" => __("", "custom-post-type-ui"),
+        "labels" => $labels,
+        "description" => "",
+        "public" => true,
+        "publicly_queryable" => true,
+        "show_ui" => true,
+        "show_in_rest" => true,
+        "rest_base" => "",
+        "rest_controller_class" => "WP_REST_Posts_Controller",
+        "has_archive" => false,
+        "show_in_menu" => true,
+        "show_in_nav_menus" => true,
+        "delete_with_user" => false,
+        "exclude_from_search" => false,
+        "capability_type" => "post",
+        "map_meta_cap" => true,
+        "hierarchical" => false,
+        "can_export" => false,
+        "rewrite" => ["slug" => "", "with_front" => true],
+        "query_var" => true,
+        "supports" => ["title"],
+        "show_in_graphql" => false,
+    ];
+
+    register_post_type("products", $args);
+}
+
+add_action('init', 'foundation_cptui_register_my_cpts');
+
+*/
+
 function foundation_on_theme_activation()
 {
     function foundation_post_meta($id, $key, $val)
     {
         add_post_meta($id, $key, $val, true);
     }
+
+    /*
+       $ = [ '' => [ , ];
+
+    if (get_post_type_object("")) {
+        foreach ($ as $x => $) {
+            $page = array(
+                'post_type'      => '',
+                'post_status'    => 'publish',
+                'post_title' =>  $x,
+            );
+            $id = wp_insert_post($page);
+           foundation_post_meta($id, '', '');
+        }
+    }
+    */
 
     if (!get_option('page_on_front')) {
         $page = array(
@@ -210,46 +308,3 @@ function foundation_on_theme_activation()
     update_option('uploads_use_yearmonth_folders', 0);
 }
 add_action('after_switch_theme', 'foundation_on_theme_activation');
-
-add_filter('pre_option_upload_path', function ($upload_path) {
-    return  get_template_directory() . '/files';
-});
-
-add_filter('pre_option_upload_url_path', function ($upload_url_path) {
-    return get_template_directory_uri() . '/files';
-});
-
-/*
-function foundation_replace_content($text_content)
-{
-    if (is_single() || is_home()) {
-        $text = array(
-            '<p>' => '<p class="callout">',
-        );
-
-        $text_content = str_ireplace(array_keys($text), $text, $text_content);
-    }
-
-    return $text_content;
-}
-add_filter('the_content', 'foundation_replace_content');
-
-function foundation_submit_form()
-{
- 
-   require_once(get_template_directory() . '/'); 
-    
-    =
-
-    <form class="grid-x align-center" method="post" id="submit_form">   
-        <input type="hidden" name="action" value="submit_form" >  
-    </form>
-    
-   
-  
-    exit();
-}
-add_action('wp_ajax_submit_form', "foundation_submit_form");
-add_action('wp_ajax_nopriv_submit_form', 'foundation_submit_form');
-
-*/
