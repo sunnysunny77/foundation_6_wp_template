@@ -144,6 +144,13 @@ add_filter('pre_option_upload_url_path', function ($upload_url_path) {
     return get_template_directory_uri() . '/files';
 });
 
+function foundation_enable_vcard_upload( $mime_types ){
+    $mime_types['vcf'] = 'text/vcard';
+    $mime_types['vcard'] = 'text/vcard';
+    return $mime_types;
+}
+add_filter('upload_mimes', 'foundation_enable_vcard_upload' );
+
 /*
 function foundation_replace_content($text_content)
 {
