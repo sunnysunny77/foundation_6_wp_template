@@ -4,6 +4,8 @@
 
     <h1 class="cell text-right"><?php the_archive_title(); ?></h1>
 
+    <i class="fi-folder"></i>
+    
     <?php if (have_posts()) {
         while (have_posts()) {
             the_post(); ?>

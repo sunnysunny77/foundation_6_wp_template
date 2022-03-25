@@ -38,7 +38,6 @@ function foundation_scripts()
 {
 
     //foundation 6 for sites and icons
-
     wp_enqueue_style('foundation-css', get_template_directory_uri() . '/assets/css/foundation.min.css');
 
     wp_enqueue_style('icons', get_template_directory_uri() . '/assets/css/icons/foundation-icons.css');
@@ -93,8 +92,8 @@ function foundation_custom_sidebars()
             'id' => 'widget_one',
             'before_widget' => '<li id="%1$s" class="widget %2$s">',
             'after_widget'  => '</li>',
-            'before_title'  => '<h6 class="widgettitle">',
-            'after_title'   => '</h6>',
+            'before_title'  => '<span class="widgettitle">',
+            'after_title'   => '</span>',
         )
     );
 }
