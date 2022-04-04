@@ -52,14 +52,14 @@ function foundation_scripts()
 
     wp_enqueue_script('app-js', get_template_directory_uri() . '/js/app.js', array( 'jquery' ), '', true);
 
+    //AJAX
     wp_enqueue_script('jquery-form','', array( 'jquery' ), '', true);
-
 
     //theme styles
     if (is_front_page()) {
         wp_enqueue_style('home-css', get_template_directory_uri() . '/assets/css/home.css');
-    } else if (is_page('video')) {
-        wp_enqueue_style('video-css', get_template_directory_uri() . '/assets/css/video.css');
+    } else if (is_page('about')) {
+        wp_enqueue_style('about-css', get_template_directory_uri() . '/assets/css/about.css');
     } else if (is_page('contact')) {
         wp_enqueue_style('contact-css', get_template_directory_uri() . '/assets/css/contact.css');
     /*  wp_enqueue_script('form-js', get_template_directory_uri() . '/js/form.js', array( 'jquery' ), '', true);
