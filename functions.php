@@ -62,12 +62,12 @@ function foundation_scripts()
         wp_enqueue_style('about-css', get_template_directory_uri() . '/assets/css/about.css');
     } else if (is_page('contact')) {
         wp_enqueue_style('contact-css', get_template_directory_uri() . '/assets/css/contact.css');
-    /*  wp_enqueue_script('form-js', get_template_directory_uri() . '/js/form.js', array( 'jquery' ), '', true);
-        wp_localize_script('form-js', 'frontend_ajax_object',
+      wp_enqueue_script('form-js', get_template_directory_uri() . '/js/form.js', array( 'jquery' ), '', true);
+        /*wp_localize_script('form-js', 'frontend_ajax_object',
         array( 
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'data_var_1' => '',
-        )*/
+        ));*/
     } else if (is_page('gallery')) {
         wp_enqueue_style('gallery-css', get_template_directory_uri() . '/assets/css/gallery.css');
     } else if (is_home()) {
@@ -275,11 +275,11 @@ function foundation_on_theme_activation()
     if (!get_page_template_slug(256)) {
         $page = array(
             'import_id'         =>  256,
-            'post_title'     => 'Video',
+            'post_title'     => 'About',
             'post_type'      => 'page',
-            'post_name'      => 'Video',
+            'post_name'      => 'About',
             'post_status'    => 'publish',
-            'page_template' => 'page-video.php',
+            'page_template' => 'page-about.php',
         );
         $id = wp_insert_post($page);
         // foundation_post_meta($id, '', '');
