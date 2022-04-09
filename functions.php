@@ -143,6 +143,8 @@ add_filter('pre_option_upload_url_path', function ($upload_url_path) {
     return get_template_directory_uri() . '/files';
 });
 
+add_filter( 'option_uploads_use_yearmonth_folders', '__return_false', 100 );
+
 function foundation_enable_vcard_upload( $mime_types ){
     $mime_types['vcf'] = 'text/vcard';
     $mime_types['vcard'] = 'text/vcard';
@@ -310,7 +312,5 @@ function foundation_on_theme_activation()
         $id = wp_insert_post($page);
           // foundation_post_meta($id, '', '');
     }
-
-    update_option('uploads_use_yearmonth_folders', 0);
 }
 add_action('after_switch_theme', 'foundation_on_theme_activation');
