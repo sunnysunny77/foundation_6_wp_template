@@ -145,6 +145,8 @@ add_filter('pre_option_upload_url_path', function ($upload_url_path) {
 
 add_filter( 'option_uploads_use_yearmonth_folders', '__return_false', 100 );
 
+/*
+
 function foundation_enable_vcard_upload( $mime_types ){
     $mime_types['vcf'] = 'text/vcard';
     $mime_types['vcard'] = 'text/vcard';
@@ -152,7 +154,16 @@ function foundation_enable_vcard_upload( $mime_types ){
 }
 add_filter('upload_mimes', 'foundation_enable_vcard_upload' );
 
-/*
+function portfolio_website_template_remove_admin_menus() {
+    remove_menu_page( 'edit.php' );
+    remove_menu_page( 'edit-comments.php' );
+	remove_menu_page( 'index.php' );
+	remove_menu_page( 'tools.php' );  
+}
+if ( current_user_can( 'editor' ) ){
+    add_action( 'admin_menu', 'portfolio_website_remove_admin_menus' );
+}
+
 function foundation_replace_content($text_content)
 {
     if (is_single() || is_home()) {
