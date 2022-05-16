@@ -334,7 +334,7 @@ function foundation_on_theme_activation()
         update_option('page_for_posts', $id);
     }
 
-    if (!get_page_template_slug(256)) {
+    if (!get_page(256)) {
         $page = array(
             'import_id'         =>  256,
             'post_title'     => 'About',
@@ -347,7 +347,7 @@ function foundation_on_theme_activation()
         // foundation_post_meta($id, '', '');
     }
 
-    if (!get_page_template_slug(257)) {
+    if (!get_page(257)) {
         $page = array(
             'import_id'         =>  257,
             'post_title'     => 'Contact',
@@ -360,7 +360,7 @@ function foundation_on_theme_activation()
         // foundation_post_meta($id, '', '');
     }
 
-    if (!get_page_template_slug(258)) {
+    if (!get_page(258)) {
         $page = array(
             'import_id'         =>  258,
             'post_title'     => 'Gallery',
