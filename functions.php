@@ -52,6 +52,12 @@ function foundation_scripts()
 
     wp_enqueue_script('app-js', get_template_directory_uri() . '/js/app.js', array( 'jquery' ), '', true);
 
+    /*
+    wp_localize_script('app-js', 'path', array(
+        'dir' => get_template_directory_uri(),
+    ));
+    */
+
     //AJAX
     wp_enqueue_script('jquery-form','', array( 'jquery' ), '', true);
 
@@ -62,12 +68,14 @@ function foundation_scripts()
         wp_enqueue_style('about-css', get_template_directory_uri() . '/assets/css/about.css');
     } else if (is_page('contact')) {
         wp_enqueue_style('contact-css', get_template_directory_uri() . '/assets/css/contact.css');
-      wp_enqueue_script('form-js', get_template_directory_uri() . '/js/form.js', array( 'jquery' ), '', true);
-        /*wp_localize_script('form-js', 'frontend_ajax_object',
+         /*
+        wp_enqueue_script('form-js', get_template_directory_uri() . '/js/form.js', array( 'jquery' ), '', true);
+        wp_localize_script('form-js', 'frontend_ajax_object',
         array( 
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'data_var_1' => '',
-        ));*/
+        ));
+        */
     } else if (is_page('gallery')) {
         wp_enqueue_style('gallery-css', get_template_directory_uri() . '/assets/css/gallery.css');
     } else if (is_home()) {
@@ -154,14 +162,14 @@ function foundation_enable_vcard_upload( $mime_types ){
 }
 add_filter('upload_mimes', 'foundation_enable_vcard_upload' );
 
-function portfolio_website_template_remove_admin_menus() {
+function foundation_remove_admin_menus() {
     remove_menu_page( 'edit.php' );
     remove_menu_page( 'edit-comments.php' );
 	remove_menu_page( 'index.php' );
 	remove_menu_page( 'tools.php' );  
 }
 if ( current_user_can( 'editor' ) ){
-    add_action( 'admin_menu', 'portfolio_website_remove_admin_menus' );
+    add_action( 'admin_menu', 'foundation_remove_admin_menus' );
 }
 
 function foundation_replace_content($text_content)
@@ -237,22 +245,14 @@ add_action('init', 'foundation_cptui_register_my_cpts');
 
 function foundation_category_media()
 {
+    $taxonomies = get_taxonomies(array('name' => 'category'), 'objects')['category'];
+
+    $taxonomies->update_count_callback = '_update_generic_term_count';
+
     register_taxonomy_for_object_type('category', 'attachment');
-
 }
-
 add_action('init', 'foundation_category_media');
 
-
-function foundation_website_change_category_arg()
-{
-    global $wp_taxonomies;
-    if (!taxonomy_exists('category'))
-        return false;
-
-    $wp_taxonomies['category']->update_count_callback = '_update_generic_term_count';
-}
-add_action('init', 'foundation_website_change_category_arg');
 
 function foundation_set_attachment_category($post_ID)
 {
@@ -270,13 +270,37 @@ add_action('edit_attachment', 'foundation_website_set_attachment_category');
 
 function foundation_on_theme_activation()
 {
+   
+
+    /*
+    function foundation_remove_post($page_path, $output, $post_type)
+    {
+        $post = get_page_by_path($page_path, $output, $post_type);
+        if ($post) {
+            wp_delete_post($post->ID, true);
+        }
+    }
+  
     function foundation_post_meta($id, $key, $val)
     {
         add_post_meta($id, $key, $val, true);
     }
 
-    /*
-       $ = [ '' => [ , ];
+     function foundation_insert_term($term, $taxonomy)
+    {
+        if (!term_exists($term, $taxonomy)) {
+            wp_insert_term(
+                $term,
+                $taxonomy,
+                array(
+                    'name' => $term,
+                    'slug' => $term,
+                )
+            );
+        }
+    }
+
+    $ = [ '' => [ , ];
 
     if (get_post_type_object("")) {
         foreach ($ as $x => $) {
@@ -288,24 +312,6 @@ function foundation_on_theme_activation()
             $id = wp_insert_post($page);
            foundation_post_meta($id, '', '');
         }
-    }
-
-
-      $post = get_page_by_path('hello-world', OBJECT, 'post');
-
-    if ($post) {
-        wp_delete_post($post->ID, true);
-    }
-    
-    if (!term_exists('storyboarding films', 'category')) {
-        wp_insert_term(
-            'storyboarding_films',
-            'category',
-            array(
-                'name' => 'storyboarding_films',
-                'slug' => 'storyboarding_films'
-            )
-        );
     }
     */
 
