@@ -151,7 +151,7 @@ add_filter('pre_option_upload_url_path', function ($upload_url_path) {
     return get_template_directory_uri() . '/files';
 });
 
-add_filter( 'option_uploads_use_yearmonth_folders', '__return_false', 100 );
+add_filter( 'option_uploads_use_yearmonth_folders', '__return_false');
 
 /*
 
