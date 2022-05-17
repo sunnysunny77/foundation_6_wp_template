@@ -256,19 +256,25 @@ add_action('init', 'foundation_category_media');
 
 function foundation_set_attachment_category($post_ID)
 {
- $post = get_post($post_ID);
+    $post_types = ["storyboarding_films"];
+    
+    $post = get_post($post_ID);
     $parent = get_post($post->post_parent);
+    $post = $parent->post_type;
 
-    function foundation_set_terms($value, $post_ID)
-    {
-        $category = get_term_by('name', $value, 'category');
-        wp_set_object_terms($post_ID, $category->term_id, 'category');
-    }
+    if (in_array($post, $post_types)) {
 
-    $post_type = "storyboarding_films";
+        function foundation_set_terms($value, $post_ID)
+        {
+            $category = get_term_by('name', $value, 'category');
+            wp_set_object_terms($post_ID, $category->term_id, 'category');
+        }
 
-    if ($parent->post_type == $post_type) {
-        foundation_set_terms($post_type, $post_ID);
+        $post_type = $post_types[0];
+
+        if ($post == $post_type) {
+            foundationset_terms($post_type, $post_ID);
+        }
     }
 };
 add_action('add_attachment', 'foundation_set_attachment_category');
