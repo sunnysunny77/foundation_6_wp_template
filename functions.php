@@ -107,6 +107,17 @@ function foundation_custom_sidebars()
 }
 add_action('widgets_init', 'foundation_custom_sidebars');
 
+add_filter('pre_option_upload_path', function ($upload_path) {
+    return  get_template_directory() . '/files';
+});
+
+add_filter('pre_option_upload_url_path', function ($upload_url_path) {
+    return get_template_directory_uri() . '/files';
+});
+
+add_filter( 'option_uploads_use_yearmonth_folders', '__return_false');
+
+/*
 function foundation_post_limits($query)
 {
     if (!is_admin() && $query->is_main_query()) {
@@ -126,7 +137,6 @@ function foundation_session()
 }
 add_action('init', 'foundation_session');
 
-/*
 function foundation_remove_frameborder($return, $data)
 {
     if (is_object($data)) {
@@ -141,19 +151,6 @@ function foundation_remove_frameborder($return, $data)
     return $return;
 }
 add_filter('oembed_dataparse', 'foundation_remove_frameborder', 10, 3);
-*/
-
-add_filter('pre_option_upload_path', function ($upload_path) {
-    return  get_template_directory() . '/files';
-});
-
-add_filter('pre_option_upload_url_path', function ($upload_url_path) {
-    return get_template_directory_uri() . '/files';
-});
-
-add_filter( 'option_uploads_use_yearmonth_folders', '__return_false');
-
-/*
 
 function foundation_enable_vcard_upload( $mime_types ){
     $mime_types['vcf'] = 'text/vcard';
@@ -197,12 +194,162 @@ function foundation_submit_form()
         <input type="hidden" name="action" value="submit_form" >  
     </form>
     
-   
-  
     exit();
 }
 add_action('wp_ajax_submit_form', "foundation_submit_form");
 add_action('wp_ajax_nopriv_submit_form', 'foundation_submit_form');
+
+// add menu
+function foundation_add_column_parent($posts_columns)
+{
+
+    $posts_columns['parents'] = __('Parent');
+      $posts_columns['child'] = __('Children');
+    return $posts_columns;
+}
+add_filter('manage_media_columns', 'foundation_add_column_parent');
+
+// populate menu
+function foundation_custom_column($column_name, $post_id)
+{
+
+    global $wpdb;
+
+    $meta_key =  get_post_meta($post_id, 'parent', true);
+
+    if ('parents' == $column_name) {
+
+        $parent = get_post_parent($post_id);
+
+        if ($meta_key) {
+            $result = $wpdb->get_var(
+                $wpdb->prepare(
+                    "
+                SELECT meta_value FROM $wpdb->postmeta 
+                WHERE meta_key = %s AND post_id = %d LIMIT 1
+                ",
+                    $meta_key,
+                    $parent->ID
+                )
+            );
+        }
+
+        if ($meta_key) {
+            echo $meta_key;
+            if (!$result) {
+                echo '<br/> Uploaded to is NULL';
+            }
+        } else {
+            echo '-';
+        }
+    }
+
+    if ('child' == $column_name) {
+
+        $text = '';
+
+        $parent = get_post_parent($post_id);
+
+        $result = $wpdb->get_results(
+            $wpdb->prepare(
+                "
+            SELECT meta_key, post_id
+            FROM $wpdb->postmeta
+            WHERE meta_value = %s AND NOT post_id = %d 
+            ",
+                $post_id,
+                $parent->ID
+            )
+        );
+
+        foreach ($result as $row) {
+
+            if (!get_post_parent($row->post_id)) {
+                $text .= "<a href='" . get_edit_post_link($row->post_id) . "'>" . $row->meta_key  . "</a><br/>" . _draft_or_post_title($row->post_id) . "<br/><br/>";
+            }
+        }
+
+        if ($text) {
+            echo $text;
+        } else {
+            echo '-';
+        }
+    }
+    return false;
+}
+add_action('manage_media_custom_column', 'foundation_custom_column', 10, 2);
+
+// order menu
+function foundation_add_column_sortable($columns)
+{
+
+    $columns['parents'] = 'parents';
+    return $columns;
+}
+add_filter('manage_upload_sortable_columns', 'foundation_add_column_sortable');
+
+// order menu
+function foundation_sortable($query)
+{
+
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+    if ('parents' === $query->get('orderby')) {
+        $query->set('order', 'ASC');
+        $query->set('orderby', 'meta_value');
+        $query->set('meta_key', 'parent');
+        if ('desc' == $_REQUEST['order']) {
+            $query->set('order', 'DSC');
+        }
+    }
+}
+add_action('pre_get_posts', 'foundation_sortable');
+
+// add parent
+function foundation_set_attachment($post_ID)
+{
+
+    $post = get_post_parent($post_ID);
+    $post_types = ["storyboarding_films"];
+    if (in_array($post->post_type, $post_types)) {
+        if ($post) {
+            update_post_meta($post_ID, "parent", $post->post_type);
+        }
+    }
+}
+add_action('add_attachment', 'foundation_set_attachment');
+add_action('edit_attachment', 'foundation_set_attachment');
+
+// toggle parent attach ui
+function foundation_attach_action($action, $attachment_id, $parent_id)
+{
+
+
+    $post = get_post($parent_id);
+    $post_types = ["storyboarding_films"];
+    if (in_array($post->post_type, $post_types)) {
+        if ($action == "attach") {
+            update_post_meta($attachment_id, "parent", $post->post_type);
+        } else if ($action == "detach") {
+            delete_post_meta($attachment_id, 'parent');
+        }
+    }
+}
+add_action('wp_media_attach_action', 'foundation_attach_action', 10, 3);
+
+// Delete parent on post delete
+function foundation_delete_post_data($postid, $post)
+{
+
+    $post_types = ["storyboarding_films"];
+    if (in_array($post->post_type, $post_types)) {
+        $meta_key =  get_post_meta($postid, $post->post_type, true);
+        delete_post_meta($meta_key, 'parent');
+    }
+    return $data;
+}
+add_action('before_delete_post', 'pfoundation_delete_post_data', 99, 2 );
 
 
 function foundation_cptui_register_my_cpts()
@@ -243,50 +390,13 @@ function foundation_cptui_register_my_cpts()
 
 add_action('init', 'foundation_cptui_register_my_cpts');
 
-function foundation_category_media()
-{
-    $taxonomies = get_taxonomies(array('name' => 'category'), 'objects')['category'];
 
-    $taxonomies->update_count_callback = '_update_generic_term_count';
-
-    register_taxonomy_for_object_type('category', 'attachment');
-}
-add_action('init', 'foundation_category_media');
-
-
-function foundation_set_attachment_category($post_ID)
-{
-    $post_types = ["storyboarding_films"];
-    
-    $post = get_post($post_ID);
-    $parent = get_post($post->post_parent);
-    $post = $parent->post_type;
-
-    if (in_array($post, $post_types)) {
-
-        function foundation_set_terms($value, $post_ID)
-        {
-            $category = get_term_by('name', $value, 'category');
-            wp_set_object_terms($post_ID, $category->term_id, 'category');
-        }
-
-        foreach ($post_types as $post_type) {
-
-            if ($post == $post_type) {
-                foundation_set_terms($post_type, $post_ID);
-            }
-        }
-    }
-};
-add_action('add_attachment', 'foundation_set_attachment_category');
-add_action('edit_attachment', 'foundation_website_set_attachment_category');
 
 */
 
 function foundation_on_theme_activation()
 {
    
-
     /*
     function foundation_remove_post($page_path, $output, $post_type)
     {
@@ -295,26 +405,8 @@ function foundation_on_theme_activation()
             wp_delete_post($post->ID, true);
         }
     }
-  
-    function foundation_post_meta($id, $key, $val)
-    {
-        add_post_meta($id, $key, $val, true);
-    }
-
-     function foundation_insert_term($term, $taxonomy)
-    {
-        if (!term_exists($term, $taxonomy)) {
-            wp_insert_term(
-                $term,
-                $taxonomy,
-                array(
-                    'name' => $term,
-                    'slug' => $term,
-                )
-            );
-        }
-    }
-
+    foundation_remove_post('hello-world', 'OBJECT', 'post');
+    
     $ = [ '' => [ , ];
 
     if (get_post_type_object("")) {
@@ -327,6 +419,11 @@ function foundation_on_theme_activation()
             $id = wp_insert_post($page);
            foundation_post_meta($id, '', '');
         }
+    }
+
+    function foundation_post_meta($id, $key, $val)
+    {
+        add_post_meta($id, $key, $val, true);
     }
     */
 
